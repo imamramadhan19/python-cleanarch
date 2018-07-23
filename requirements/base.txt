@@ -1,0 +1,23 @@
+# Sanic is a Flask-like Python 3.5+ web server that's written to go fast.
+# https://github.com/channelcat/sanic
+sanic
+
+# The Orator ORM provides a simple yet beautiful ActiveRecord implementation.
+# https://orator-orm.com/
+orator
+
+# Psycopg is the most popular PostgreSQL database adapter for the Python programming language.
+# http://initd.org/psycopg/docs/
+psycopg2-binary
+
+# Decouple helps you to organize your settings so that you can change parameters without having to redeploy your app.
+# https://github.com/henriquebastos/python-decouple
+python-decouple
+
+
+# munch is a fork of David Schoonover's Bunch package, providing similar functionality. 
+# 99% of the work was done by him, and the fork was made mainly for lack of responsiveness for fixes and maintenance on the original code.
+# https://github.com/Infinidat/munch
+bunch
+
+configparser
