@@ -1,3 +1,4 @@
+from src.shared import helper
 from src.posts.domain.posts import Posts
 from src.posts.repository.posts_repository import PostsRepository
 
@@ -83,8 +84,36 @@ class PostsRepositoryMem(PostsRepository):
 
     def get_by_id(self, pk): pass
 
-    def create(self, adict): pass
+    def create(self, adict): 
+        
+        create = {
+            'title': adict['title'],
+            'content': adict['content'],
+            'author_id': adict['author_id'],
+            'category_id': adict['category_id'],
+            'is_active':True,
+            'created_at': helper.get_now_timestamp(),
+            'updated_at': helper.get_now_timestamp(),
+        }
 
-    def update(self, adict): pass
+        return True
 
-    def delete(self, adict): pass
+    def update(self, adict): 
+
+        update = {
+            'id': adict['id'],
+            'title': adict['title'],
+            'content': adict['content'],
+            'author_id': adict['author_id'],
+            'category_id': adict['category_id'],
+            'is_active':True,
+            'created_at': helper.get_now_timestamp(),
+            'updated_at': helper.get_now_timestamp(),
+        }
+
+        return True
+
+    def delete(self, adict): 
+
+        adict['id']
+        return True

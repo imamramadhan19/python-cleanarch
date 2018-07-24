@@ -37,6 +37,7 @@ class PostsRepositoryPSQL(PostsRepository):
         }
 
     def get_by_id(self, pk):
+
         query = self.db.table('posts').where('id', pk).where('is_active',True).first()
         if query:
             return Posts.from_dict({
@@ -50,31 +51,31 @@ class PostsRepositoryPSQL(PostsRepository):
             })
         return query
     
-    def create(self, obj):
+    def create(self, adict):
         
         return self.db.table('posts').insert_get_id({
-            'title': obj.title,
-            'content': obj.content,
-            'author_id': obj.author_id,
-            'category_id': obj.category_id,
+            'title': adict['title'],
+            'content': adict['content'],
+            'author_id': adict['author_id'],
+            'category_id': adict['category_id'],
             'is_active':True,
             'created_at': helper.get_now_timestamp(),
             'updated_at': helper.get_now_timestamp(),
         })
 
-    def update(self, obj):
+    def update(self, adict):
 
-        return self.db.table('posts').where('id', obj.id).update({
-            'title': obj.title,
-            'content': obj.content,
-            'author_id': obj.author_id,
-            'category_id': obj.category_id,
-            'is_active':obj.is_active,
+        return self.db.table('posts').where('id', adict['id']).update({
+            'title': adict['title'],
+            'content': adict['content'],
+            'author_id': adict['author_id'],
+            'category_id': adict['category_id'],
+            'is_active':adict['is_active'],
             'updated_at': helper.get_now_timestamp(),
         })
 
-    def delete(self, id): 
-        return self.db.table('posts').where('id', '=', id).delete()
+    def delete(self, adict): 
+        return self.db.table('posts').where('id', '=', adict['id']).delete()
 
     def _filter_query(self, adict):
         

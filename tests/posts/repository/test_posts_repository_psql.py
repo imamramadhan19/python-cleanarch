@@ -37,9 +37,9 @@ def test_create(db_con):
         'author_id':1,
     }
 
-    obj = dict_to_obj(adict)
+    #obj = dict_to_obj(adict)
 
-    id = Repository(db=db_con).create(obj)
+    id = Repository(db=db_con).create(adict)
     
     pytest.global_id = id
 
@@ -57,14 +57,14 @@ def test_update(db_con):
         'author_id':1,
     }
 
-    obj = dict_to_obj(adict)
+    # obj = dict_to_obj(adict)
 
-    id = Repository(db=db_con).update(obj)
+    id = Repository(db=db_con).update(adict)
 
     assert isinstance(id, int)
     assert id > 0
 
 def test_delete(db_con):
-    id = Repository(db=db_con).delete(pytest.global_id)
+    id = Repository(db=db_con).delete({"id":pytest.global_id})
     assert id > 0
 
