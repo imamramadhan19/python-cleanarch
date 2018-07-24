@@ -1,9 +1,10 @@
-from src.v1.shared import response_object as ro
+from src.shared import response_object as ro
 
 
 class UseCase(object):
 
     def execute(self, request_object):
+
         if not request_object:
             return ro.ResponseFailure.build_from_invalid_request_object(request_object)
         try:

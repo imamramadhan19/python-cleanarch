@@ -2,30 +2,34 @@ from sanic import Blueprint
 from sanic.response import json
 from sanic.log import logger
 
-from src.posts.repository.posts_repository_psql import PostsRepositoryPSQL as Repository
-from src.posts.use_cases.posts import ListShipmentProviderUsecases as Usecases
-from src.posts.use_cases.list_shipment_provider_request_object import ListShipmentProviderRequestObject
+from src.posts.repository.posts_repository_psql import PostsRepositoryPSQL as repository
+from src.posts.use_cases.get_posts_usecase import GetPostsUsecase as usecase
+from src.posts.use_cases.get_posts_request_object import GetPostsRequestObject as ro
 from src.shared.responses.json import Success, Failure
 from src.shared.responses.status_code import STATUS_CODES
 
-bp_post = Blueprint('Posts', url_prefix='v1/posts')
+bp_posts = Blueprint('Posts', url_prefix='v1/posts')
 
-@bp_post.route('/')
+@bp_posts.route('/')
 async def index(request):
 
     try:
 
-        adict           = request.raw_args
+        request.args.get('q')
 
-        repository      = Repository(db=request.app.db)
-        use_cases       = Usecases(repo=repository)
-        request_object  = ListShipmentProviderRequestObject.from_dict({})
+        filters = {
+                    "filters":{}
+                    }
+
+        repo_init       = repository(db=request.app.db)
+        use_cases       = usecase(repo=repo_init)
+        request_object  = ro.from_dict(filters)
         response_object = use_cases.execute(request_object)
-
+        
         if response_object.type:
             return Failure([],message=response_object.message,code=STATUS_CODES[response_object.type] ).format()
 
-        return Success(response_object.value['result']).format()
+        return Success(data=response_object.value['result'],meta=response_object.value).format()
 
     except Exception as e:
 

@@ -3,7 +3,7 @@ import pytest
 from src.posts.domain.posts import Posts
 
 
-def test_post_model_init():
+def test_init():
     id = 1
     post = Posts(
         id=id,
@@ -23,7 +23,7 @@ def test_post_model_init():
     assert post.created_at == '2018-07-11'
     assert post.updated_at == '2018-07-12'
 
-def test_post_model_from_dict():
+def test_from_dict():
     id = 1
     post = Posts.from_dict({
         'id': id,

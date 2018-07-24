@@ -4,19 +4,31 @@ SERVED_BY = 'Shipment-Service'
 
 class Success(object):
 
-    def __init__(self, data, code = 200, message=None):
+    def __init__(self, data, meta=None,code = 200, message=None):
         self.data = data
         self.message = message
         self.code = code
+        self.meta = meta
     
     def format(self):
 
         output = {
-            "status": True,
-            "code":self.code,
-            "message": "OK",
             "data": self.data
         }
+
+        if self.meta is not None:
+
+            output["meta"] = {
+                   'count': self.meta['count'],
+                   'currentPage': self.meta['currentPage'],
+                   'hasMorePages': self.meta['hasMorePages'],
+                   'lastPage': self.meta['lastPage'],
+                   'nextPage': self.meta['nextPage'],
+                   'perPage': self.meta['perPage'],
+                   'prevPage': self.meta['prevPage'],
+                   'total': self.meta['total'],
+               }
+        
 
         if self.message is not None:
             output['data']['message'] = self.message
@@ -34,23 +46,14 @@ class Failure(object):
     def format(self, errors="", message=None):
 
         output = {
-            "status": False,
-            "code":self.code,
-            "message": self.message,
-            "data": None
+            "error": {
+                "code": self.code,
+                "userMessage":self.message,
+                "internalMessage":self.internalMessage
+            }
         }
-        
-        return json(output, headers={'X-Served-By': SERVED_BY}, status=self.code)
-        
-        # output = {
-        #     "error": {
-        #         "code": code,
-        #         "userMessage":message if message is not None else STATUS_CODES.get(code),
-        #         "internalMessage":internalMessage if internalMessage is not None else STATUS_CODES.get(code)
-        #     }
-        # }
 
-        # if len(errors) > 0:
-        #     output['error']["errors"]=errors
+        if len(errors) > 0:
+            output['error']["errors"]=errors
         
         return json(output, headers={'X-Served-By':SERVED_BY}, status=self.code)

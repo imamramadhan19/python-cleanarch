@@ -5,15 +5,8 @@ def get_now_timestamp():
     return datetime.now()
 
 def get_value_from_dict(adict, key, default):
-    output = default
-    try:
-        output = int(adict[key])
-    except KeyError as e:
-        print("Key Error: {}".format(e))
-    except ValueError as e:
-        print("Value Error: {}".format(e))
 
-    return output
+    return adict.get(key,default)
 
 def build_next_url(url, cur_page, next_page):
     if not next_page:

@@ -6,8 +6,7 @@ class PostsRepositoryMem(PostsRepository):
         self.db = db
         super(PostsRepositoryMem, self).__init__()
 
-    def get_all(self, adict):
-
+    def get_all(self, filters):
         result = []
    
         data = Posts.from_dict({
@@ -64,13 +63,28 @@ class PostsRepositoryMem(PostsRepository):
             'content': 'Content blog 5',
             'category_id':1,
             'author_id':1,
+            'created_at': '2018-07-11',
+            'updated_at': '2018-07-12'
         })
         
         result.append(data)
-
+    
         return {
+            'count': len(result),
+            'currentPage': 0,
+            'hasMorePages': 0,
+            'lastPage': 0,
+            'nextPage': 0,
+            'perPage': 0,
+            'prevPage': 0,
             'result': result,
             'total': len(result),
         }
 
     def get_by_id(self, pk): pass
+
+    def create(self, adict): pass
+
+    def update(self, adict): pass
+
+    def delete(self, adict): pass

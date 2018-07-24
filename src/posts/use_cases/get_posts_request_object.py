@@ -1,7 +1,7 @@
 import collections
 from src.shared.request_object import ValidRequestObject, InvalidRequestObject
 
-class PostsRequestObject(ValidRequestObject):
+class GetPostsRequestObject(ValidRequestObject):
 
     def __init__(self, filters=None):
         self.filters = filters
@@ -19,4 +19,4 @@ class PostsRequestObject(ValidRequestObject):
         if invalid_req.has_errors():
             return invalid_req
 
-        return PostsRequestObject(filters=adict.get('filters', None))
+        return GetPostsRequestObject(filters=adict.get('filters', None))

@@ -9,7 +9,7 @@ class PostsRepositoryPSQL(PostsRepository):
         super(PostsRepositoryPSQL, self).__init__()
 
     def get_all(self, filters):
-
+        
         query = self._filter_query(filters)
         result = []
         for row in query:
@@ -23,7 +23,7 @@ class PostsRepositoryPSQL(PostsRepository):
                 'updated_at':row['updated_at']
             })
             result.append(data)
-
+       
         return {
             'count': query.count(),
             'currentPage': query.current_page,
@@ -62,15 +62,28 @@ class PostsRepositoryPSQL(PostsRepository):
             'updated_at': helper.get_now_timestamp(),
         })
 
-    def update(self, adict): pass
+    def update(self, obj):
 
-    def delete(self, adict): pass
+        return self.db.table('posts').where('id', obj.id).update({
+            'title': obj.title,
+            'content': obj.content,
+            'author_id': obj.author_id,
+            'category_id': obj.category_id,
+            'is_active':obj.is_active,
+            'updated_at': helper.get_now_timestamp(),
+        })
+
+    def delete(self, id): 
+        return self.db.table('posts').where('id', '=', id).delete()
 
     def _filter_query(self, adict):
-
+        
         query = self.db.table('posts')
-       
+        # query = query.select("posts.id","posts.title","posts.content","posts.is_active","posts.created_at","posts.category_id")
+        # query = query.join("authors","posts.author_id","=","authors.id")
+     
         page = helper.get_value_from_dict(adict, 'page', 1)
+      
         limit = helper.get_value_from_dict(adict, 'limit',  self.limit)
 
         is_active = helper.get_value_from_dict(adict, 'is_active', '')

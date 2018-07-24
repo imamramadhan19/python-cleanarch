@@ -2,14 +2,14 @@ from orator import DatabaseManager
 from sanic import Sanic
 
 from config import Config
-#from src.posts.delivery.http.index import bp_article
+from src.posts.delivery.http.index import bp_posts
 
 
 def create_app(config_object=Config):
 
     app = Sanic(__name__)
     app.config.from_object(config_object)
-#    app.blueprint(bp_article)
+    app.blueprint(bp_posts)
 
     return app
 

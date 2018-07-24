@@ -21,3 +21,6 @@ python-decouple
 bunch
 
 configparser
+
+pytest
+pytest-sanic

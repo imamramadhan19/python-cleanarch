@@ -1,4 +1,4 @@
-from src.v1.shared.response_object import ResponseFailure, ResponseSuccess
+from src.shared.response_object import ResponseFailure, ResponseSuccess
 
 STATUS_CODES = {
     ResponseSuccess.SUCCESS: 200,
