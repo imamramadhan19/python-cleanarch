@@ -1,3 +1,7 @@
+docker:
+	docker-compose -f docker-compose.yml build --no-cache
+	docker-compose -f docker-compose.yml up
+
 run:
 	python manage.py
 	
@@ -9,3 +13,4 @@ run_tests:
 
 lint_check:
 	pylint src/*
+
