@@ -1,6 +1,6 @@
 
 
-class Posts(object):
+class Article(object):
     def __init__(self, id, title, content, category_id, author_id, created_at, updated_at):
         self.id             = id
         self.title          = title
@@ -12,7 +12,7 @@ class Posts(object):
 
     @classmethod
     def from_dict(self, adict):
-        posts = Posts(
+        article = Article(
             id=adict['id'],
             title=adict['title'],
             content=adict['content'],
@@ -22,4 +22,4 @@ class Posts(object):
             updated_at=adict['updated_at']
         )
 
-        return posts
+        return article

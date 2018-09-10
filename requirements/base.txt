@@ -20,7 +20,5 @@ python-decouple
 # https://github.com/Infinidat/munch
 bunch
 
-configparser
-
 pytest
 pytest-sanic

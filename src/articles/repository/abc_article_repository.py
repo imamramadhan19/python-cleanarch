@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class PostsRepository(ABC,object):
+class ArticleRepository(ABC,object):
 
     @abstractmethod
     def get_all(self, filters): pass

@@ -1,19 +1,19 @@
 from src.shared import helper
-from src.posts.domain.posts import Posts
-from src.posts.repository.posts_repository import PostsRepository
+from src.articles.domain.article import Article
+from src.articles.repository.abc_article_repository import ArticleRepository
 
-class PostsRepositoryPSQL(PostsRepository):
+class ArticleRepositoryOrator(ArticleRepository):
     def __init__(self, db):
         self.db = db
         self.limit = 10
-        super(PostsRepositoryPSQL, self).__init__()
+        super(ArticleRepositoryOrator, self).__init__()
 
     def get_all(self, filters):
         
         query = self._filter_query(filters)
         result = []
         for row in query:
-            data = Posts.from_dict({
+            data = Article.from_dict({
                 'id': row['id'],
                 'title': row['title'],
                 'content': row['content'],
@@ -40,7 +40,7 @@ class PostsRepositoryPSQL(PostsRepository):
 
         query = self.db.table('posts').where('id', pk).where('is_active',True).first()
         if query:
-            return Posts.from_dict({
+            return Article.from_dict({
                 'id': query['id'],
                 'title': query['title'],
                 'content': query['content'],
@@ -79,31 +79,15 @@ class PostsRepositoryPSQL(PostsRepository):
 
     def _filter_query(self, adict):
         
-        query = self.db.table('posts')
-        # query = query.select("posts.id","posts.title","posts.content","posts.is_active","posts.created_at","posts.category_id")
-        # query = query.join("authors","posts.author_id","=","authors.id")
+        query = self.db.table('articles')
      
-        page = helper.get_value_from_dict(adict, 'page', 1)
-      
-        limit = helper.get_value_from_dict(adict, 'limit',  self.limit)
-
         is_active = helper.get_value_from_dict(adict, 'is_active', '')
         if is_active != "":
             query = query.where('is_active','=','{}'.format(is_active) )
-
-        title = helper.get_value_from_dict(adict, 'title', '')
-        if title.strip() != "":
-            query = query.where('title', 'like', "%{}%".format(title))
         
-        content = helper.get_value_from_dict(adict, 'content', '')
-        if content.strip() != "":
-            query = query.where('content', 'like', "%{}%".format(content))
+        title = helper.get_value_from_dict(adict, 'title', '')
+        if title != "":
+            query = query.where('title','=','{}'.format(title) )
 
-        sort = helper.get_value_from_dict(adict, 'sort', 'created_at')
-        if sort == '-created_at':
-            query = query.order_by('created_at', 'DESC')
-        else:
-            query = query.order_by('created_at', 'ASC')
-
-        return query.paginate(limit, page)
+        return query.get()
        

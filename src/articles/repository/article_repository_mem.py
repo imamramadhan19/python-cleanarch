@@ -1,16 +1,16 @@
 from src.shared import helper
-from src.posts.domain.posts import Posts
-from src.posts.repository.posts_repository import PostsRepository
+from src.articles.domain.article import Article
+from src.articles.repository.abc_article_repository import ArticleRepository
 
-class PostsRepositoryMem(PostsRepository):
+class ArticleRepositoryMem(ArticleRepository):
     def __init__(self, db):
         self.db = db
-        super(PostsRepositoryMem, self).__init__()
+        super(ArticleRepositoryMem, self).__init__()
 
     def get_all(self, filters):
         result = []
    
-        data = Posts.from_dict({
+        data = Article.from_dict({
             'id': 1,
             'title': 'Title blog 1',
             'content': 'Content blog 1',
@@ -22,7 +22,7 @@ class PostsRepositoryMem(PostsRepository):
         
         result.append(data)
 
-        data = Posts.from_dict({
+        data = Article.from_dict({
             'id': 2,
             'title': 'Title blog 2',
             'content': 'Content blog 2',
@@ -34,7 +34,7 @@ class PostsRepositoryMem(PostsRepository):
         
         result.append(data)
 
-        data = Posts.from_dict({
+        data = Article.from_dict({
             'id': 3,
             'title': 'Title blog 3',
             'content': 'Content blog 3',
@@ -46,7 +46,7 @@ class PostsRepositoryMem(PostsRepository):
         
         result.append(data)
 
-        data = Posts.from_dict({
+        data = Article.from_dict({
             'id': 4,
             'title': 'Title blog 4',
             'content': 'Content blog 4',
@@ -58,7 +58,7 @@ class PostsRepositoryMem(PostsRepository):
         
         result.append(data)
 
-        data = Posts.from_dict({
+        data = Article.from_dict({
             'id': 5,
             'title': 'Title blog 5',
             'content': 'Content blog 5',

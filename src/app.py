@@ -1,31 +1,30 @@
+import redis
 from orator import DatabaseManager
 from sanic import Sanic
 
-from config import Config
-from src.posts.delivery.http.index import bp_posts
-
-
-def create_app(config_object=Config):
-
-    app = Sanic(__name__)
-    app.config.from_object(config_object)
-    app.blueprint(bp_posts)
-
-    return app
+from config.config import Config
+from src.articles.delivery.http_sanic import bp_articles
 
 
 def connect_db():
-
+    # postgres use pgsql
     config = {
-        'postgresql': {
-            'driver': 'pgsql',
-            'host': Config.SQL_HOST,
-            'database': Config.SQL_DATABASE,
-            'user': Config.SQL_USERNAME,
-            'password': Config.SQL_PASSWORD,
+        'postgres': {
+            'driver': Config.DB_TYPE, 
+            'host': Config.DB_HOST,
+            'database': Config.DB_NAME,
+            'user': Config.DB_USER,
+            'password': Config.DB_PASS,
             'prefix': '',
-            'port':Config.SQL_PORT
+            'log_queries': True,
         }
     }
-
     return DatabaseManager(config)
+
+
+def create_app(config):
+    app = Sanic(__name__)
+    app.config.from_object(config)
+    app.blueprint(bp_articles)
+
+    return app
