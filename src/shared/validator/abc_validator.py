@@ -1,7 +1,8 @@
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 
 
-class Validator(ABC, object):
+class Validator(object):
+    __metaclass__ = ABCMeta
 
     @abstractmethod
     def is_valid(self): pass

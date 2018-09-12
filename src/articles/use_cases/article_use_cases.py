@@ -31,9 +31,9 @@ class ListArticleUsecase(ArticleUsecase):
         self.repo = repo
 
     def process_request(self, request_object):
-       
+        
         process = self.repo.get_all(filters=request_object.filters)
-        if process['total'] > 0:
+        if len(process['result']) > 0:
             return ro.ResponseSuccess("Data berhasil ditampilkan")
             
         return ro.ResponseFailure.build_resource_error("Data tidak ditemukan")

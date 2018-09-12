@@ -5,8 +5,6 @@ from src.articles.repository.abc_article_repository import ArticleRepository
 class ArticleRepositoryOrator(ArticleRepository):
     def __init__(self, db):
         self.db = db
-        self.limit = 10
-        super(ArticleRepositoryOrator, self).__init__()
 
     def get_all(self, filters):
         
@@ -25,20 +23,12 @@ class ArticleRepositoryOrator(ArticleRepository):
             result.append(data)
        
         return {
-            'count': query.count(),
-            'currentPage': query.current_page,
-            'hasMorePages': query.has_more_pages(),
-            'lastPage': query.last_page,
-            'nextPage': query.next_page,
-            'perPage': query.per_page,
-            'prevPage': query.previous_page,
-            'total': query.total,
             'result': result
         }
 
     def get_by_id(self, pk):
 
-        query = self.db.table('posts').where('id', pk).where('is_active',True).first()
+        query = self.db.table('articles').where('id', pk).where('is_active',True).first()
         if query:
             return Article.from_dict({
                 'id': query['id'],
@@ -53,7 +43,7 @@ class ArticleRepositoryOrator(ArticleRepository):
     
     def create(self, adict):
         
-        return self.db.table('posts').insert_get_id({
+        return self.db.table('articles').insert_get_id({
             'title': adict['title'],
             'content': adict['content'],
             'author_id': adict['author_id'],
@@ -65,7 +55,7 @@ class ArticleRepositoryOrator(ArticleRepository):
 
     def update(self, adict):
 
-        return self.db.table('posts').where('id', adict['id']).update({
+        return self.db.table('articles').where('id', adict['id']).update({
             'title': adict['title'],
             'content': adict['content'],
             'author_id': adict['author_id'],
@@ -75,7 +65,7 @@ class ArticleRepositoryOrator(ArticleRepository):
         })
 
     def delete(self, adict): 
-        return self.db.table('posts').where('id', '=', adict['id']).delete()
+        return self.db.table('articles').where('id', '=', adict['id']).delete()
 
     def _filter_query(self, adict):
         
