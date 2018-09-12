@@ -21,9 +21,9 @@ def connect_db():
     return DatabaseManager(config)
 
 
-def create_app():
+def create_app(config):
     app = Sanic(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(config)
     app.blueprint(bp_articles)
 
     return app

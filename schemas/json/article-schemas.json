@@ -1,0 +1,24 @@
+[{
+    "id": "article_create_params",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "schema create params from client",
+    "type": "object",
+    "properties": {
+        
+    },
+    "required": [],
+    "anyOf":[
+         
+    ]
+  },
+  {
+    "id": "article_get_params",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "schema get params from client",
+    "type": "object",
+    "properties": {
+        
+    },
+    "required": []
+  }
+]
