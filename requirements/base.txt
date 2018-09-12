@@ -22,3 +22,7 @@ bunch
 
 pytest
 pytest-sanic
+
+# An(other) implementation of JSON Schema for Python
+# https://github.com/Julian/jsonschema
+jsonschema==2.6.0
