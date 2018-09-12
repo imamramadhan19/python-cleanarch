@@ -13,13 +13,13 @@ async def index(request):
     if request.method == 'GET':
         repo_init       = ArticleRepositoryOrator(db=request.app.db)
         use_cases       = ListArticleUsecase(repo=repo_init)
-        request_object  = ListArticleRequestObject.from_dict(request.args.raw)
+        request_object  = ListArticleRequestObject.from_dict(request.raw_args)
         response_object = use_cases.execute(request_object)
     
     if request.method == 'POST':
         repo_init       = ArticleRepositoryOrator(db=request.app.db)
         use_cases       = CreateArticleUsecase(repo=repo_init)
-        request_object  = CreateArticleRequestObject.from_dict(request.args.raw)
+        request_object  = CreateArticleRequestObject.from_dict(request.args.json)
         response_object = use_cases.execute(request_object)
 
     

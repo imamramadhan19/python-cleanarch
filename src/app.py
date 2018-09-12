@@ -1,4 +1,3 @@
-import redis
 from orator import DatabaseManager
 from sanic import Sanic
 
@@ -22,9 +21,9 @@ def connect_db():
     return DatabaseManager(config)
 
 
-def create_app(config):
+def create_app():
     app = Sanic(__name__)
-    app.config.from_object(config)
+    app.config.from_object(Config)
     app.blueprint(bp_articles)
 
     return app
