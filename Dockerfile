@@ -6,7 +6,7 @@ COPY . .
 
 RUN pip install --upgrade pip
 
-RUN pip install requirements.txt
+RUN pip install -r requirements/dev.txt
 
 RUN apt-get update && apt-get install -y supervisor
 

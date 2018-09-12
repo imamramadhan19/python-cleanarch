@@ -4,7 +4,8 @@ from config.config import Config
 from src.articles.repository.article_repository_orator import ArticleRepositoryOrator
 from src.shared.request.request_sanic import RequestSanicDict
 from src.articles.use_cases.article_use_cases import ListArticleUsecase, CreateArticleUsecase
-from src.articles.delivery.article_request_object import ListArticleRequestObject, CreateArticleRequestObject
+from src.articles.delivery.article_request_object import ListArticleRequestObject
+from src.shared.validator.validator_cerberus import ValidatorCerberus
 
 bp_articles = Blueprint('Articles', url_prefix='articles')
 
@@ -13,18 +14,11 @@ async def index(request):
     obj_dict = RequestSanicDict(request).parse_all_to_dict()
 
     if request.method == 'GET':
+
+        validator       = ValidatorCerberus()
         repo_init       = ArticleRepositoryOrator(db=request.app.db)
         use_cases       = ListArticleUsecase(repo=repo_init)
-        request_object  = ListArticleRequestObject.from_dict(obj_dict)
-        response_object = use_cases.execute(request_object)
-    
-    if request.method == 'POST':
-        repo_init       = ArticleRepositoryOrator(db=request.app.db)
-        use_cases       = CreateArticleUsecase(repo=repo_init)
-        request_object  = CreateArticleRequestObject.from_dict(obj_dict)
+        request_object  = ListArticleRequestObject.from_dict(adict=request.raw_args, validator=validator)
         response_object = use_cases.execute(request_object)
 
-    
     return json(response_object.value, status=Config.STATUS_CODES[response_object.type])
-        
-

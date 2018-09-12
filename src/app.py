@@ -11,6 +11,7 @@ def connect_db():
         'postgres': {
             'driver': Config.DB_TYPE, 
             'host': Config.DB_HOST,
+            'port':Config.DB_PORT,
             'database': Config.DB_NAME,
             'user': Config.DB_USER,
             'password': Config.DB_PASS,
