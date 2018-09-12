@@ -1,15 +1,15 @@
+from src.shared import helper
 from src.shared.request_object import ValidRequestObject, InvalidRequestObject
 
 class ListArticleRequestObject(ValidRequestObject):
-    def __init__(self,is_active):
-        self.is_active = is_active
+    def __init__(self,title):
+        self.title = title
     
     @classmethod
     def from_dict(cls, adict, validator):
-        
         schema = {     
-                    'is_active': {
-                    'type': 'boolean',
+                    'title': {
+                    'type': 'string',
                     'required': False,
                     }
                 }
@@ -22,7 +22,7 @@ class ListArticleRequestObject(ValidRequestObject):
         data = validator.get_valid_data()
         
         return ListArticleRequestObject(
-            is_active=data['is_active']
+            title=helper.get_value_from_dict(data,'title','')
         )
 
     def __nonzero__(self):

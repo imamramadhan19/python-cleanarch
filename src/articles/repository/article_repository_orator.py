@@ -6,9 +6,15 @@ class ArticleRepositoryOrator(ArticleRepository):
     def __init__(self, db):
         self.db = db
 
-    def get_all(self, filters):
+    def get_all(self, request_objects):
         
-        query = self._filter_query(filters)
+        query = self.db.table('articles')
+     
+        if request_objects.title != "":
+            query = query.where('title','like','%{}%'.format(request_objects.title) )
+    
+        query = query.get()
+
         result = []
         for row in query:
             data = Article.from_dict({
@@ -22,13 +28,20 @@ class ArticleRepositoryOrator(ArticleRepository):
             })
             result.append(data)
        
-        return {
-            'result': result
-        }
+        return result
+    
+    def get_total(self, request_objects):
+        
+        query = self.db.table('articles')
+     
+        if request_objects.title != "":
+            query = query.where('title','=','{}'.format(request_objects.title) )
+    
+        return query.count()
 
-    def get_by_id(self, pk):
+    def get_by_id(self, request_objects):
 
-        query = self.db.table('articles').where('id', pk).where('is_active',True).first()
+        query = self.db.table('articles').where('id', request_objects.id).first()
         if query:
             return Article.from_dict({
                 'id': query['id'],
@@ -41,43 +54,29 @@ class ArticleRepositoryOrator(ArticleRepository):
             })
         return query
     
-    def create(self, adict):
+    def create(self, request_objects):
         
         return self.db.table('articles').insert_get_id({
-            'title': adict['title'],
-            'content': adict['content'],
-            'author_id': adict['author_id'],
-            'category_id': adict['category_id'],
+            'title': request_objects.title,
+            'content': request_objects.content,
+            'author_id': request_objects.author_id,
+            'category_id': request_objects.category_id,
             'is_active':True,
             'created_at': helper.get_now_timestamp(),
             'updated_at': helper.get_now_timestamp(),
         })
 
-    def update(self, adict):
+    def update(self, request_objects):
 
-        return self.db.table('articles').where('id', adict['id']).update({
-            'title': adict['title'],
-            'content': adict['content'],
-            'author_id': adict['author_id'],
-            'category_id': adict['category_id'],
-            'is_active':adict['is_active'],
+        return self.db.table('articles').where('id', request_objects.id).update({
+            'title': request_objects.title,
+            'content': request_objects.content,
+            'author_id': request_objects.author_id,
+            'category_id': request_objects.category_id,
+            'is_active':request_objects.is_active,
             'updated_at': helper.get_now_timestamp(),
         })
 
-    def delete(self, adict): 
-        return self.db.table('articles').where('id', '=', adict['id']).delete()
+    def delete(self, request_objects): 
+        return self.db.table('articles').where('id', '=', request_objects.id).delete()
 
-    def _filter_query(self, adict):
-        
-        query = self.db.table('articles')
-     
-        is_active = helper.get_value_from_dict(adict, 'is_active', '')
-        if is_active != "":
-            query = query.where('is_active','=','{}'.format(is_active) )
-        
-        title = helper.get_value_from_dict(adict, 'title', '')
-        if title != "":
-            query = query.where('title','=','{}'.format(title) )
-
-        return query.get()
-       
