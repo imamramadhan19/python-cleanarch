@@ -1,6 +1,6 @@
 # Sanic is a Flask-like Python 3.5+ web server that's written to go fast.
 # https://github.com/channelcat/sanic
-sanic==0.7.0
+sanic==0.8.3
 
 # The Orator ORM provides a simple yet beautiful ActiveRecord implementation.
 # https://orator-orm.com/

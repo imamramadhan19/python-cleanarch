@@ -32,4 +32,4 @@ def invalid_usage(request, exception):
     return json(response.value, status=Config.STATUS_CODES[response.type])
 
 if __name__ == '__main__':
-    app.run(host=Config.HOST, port=int(Config.PORT), debug=Config.DEBUG)
+    app.run(host=Config.HOST, port=int(Config.PORT), debug=Config.DEBUG, auto_reload=False)
