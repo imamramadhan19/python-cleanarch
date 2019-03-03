@@ -2,6 +2,10 @@
 # https://github.com/channelcat/sanic
 sanic==0.8.3
 
+# A Sanic extension adding a decorator for CORS support. Based on flask-cors by Cory Dolphin.
+# https://github.com/ashleysommer/sanic-cors
+sanic-cors==0.9.7
+
 # Requests is an elegant and simple HTTP library for Python, built for human beings.
 # https://github.com/requests/requests
 requests==2.19.1
@@ -37,16 +41,11 @@ marshmallow==2.15.4
 # Pylint is a Python static code analysis tool which looks for programming errors, 
 # helps enforcing a coding standard, sniffs for code smells and offers simple refactoring suggestions
 # https://github.com/PyCQA/pylint/
-pylint==2.1.1
+pylint==2.3.0
 
 # An(other) implementation of JSON Schema for Python
 # https://github.com/Julian/jsonschema
 jsonschema==2.6.0
-
-# Pylint is a Python static code analysis tool which looks for programming errors, 
-# helps enforcing a coding standard, sniffs for code smells and offers simple refactoring suggestions
-# https://github.com/PyCQA/pylint/
-pylint==2.1.1
 
 # Raven is the official legacy Python client for Sentry, 
 # officially supports Python 2.6–2.7 & 3.3–3.7, and runs on PyPy and Google App Engine.

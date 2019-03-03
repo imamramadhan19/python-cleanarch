@@ -6,7 +6,7 @@ def get_now_timestamp():
 
 def get_value_from_dict(adict, key, default):
 
-    return adict.get(key,default)
+    return adict.get(key, default)
 
 def build_next_url(url, cur_page, next_page):
     if not next_page:
@@ -22,4 +22,3 @@ def build_prev_url(url, cur_page, prev_page):
 def dict_to_obj(adict):
 
     return namedtuple('Struct', adict.keys())(*adict.values())
-

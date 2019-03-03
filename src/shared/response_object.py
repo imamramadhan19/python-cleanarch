@@ -12,9 +12,9 @@ class ResponseSuccess(object):
     __bool__ = __nonzero__
 
 class ResponseFailure(object):
-    RESOURCE_ERROR      = 'RESOURCE_ERROR'
-    PARAMETERS_ERROR    = 'PARAMETERS_ERROR'
-    SYSTEM_ERROR        = 'SYSTEM_ERROR'
+    RESOURCE_ERROR = 'RESOURCE_ERROR'
+    PARAMETERS_ERROR = 'PARAMETERS_ERROR'
+    SYSTEM_ERROR = 'SYSTEM_ERROR'
 
     def __init__(self, type_, message):
         self.type = type_
@@ -49,4 +49,3 @@ class ResponseFailure(object):
         message = "\n".join(["{}: {}".format(err['parameter'], err['message'])
                              for err in invalid_request_object.errors])
         return cls.build_parameters_error(message)
-

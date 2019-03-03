@@ -1,6 +1,7 @@
 import asyncio
 from sanic.exceptions import ServerError, InvalidUsage
-from src.app import create_app, connect_db, kafka_consumer_confluent, kafka_consumer
+# from src.app import create_app, connect_db, kafka_consumer_confluent, kafka_consumer
+from src.app import create_app, connect_db
 from schemas.json.loader import JSONSchemaLoader
 
 from config.config import Config
