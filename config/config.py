@@ -12,6 +12,7 @@ class Config(object):
     PORT = config('PORT')
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
+    RUN_MULTIPLE_PROCESS = config('RUN_MULTIPLE_PROCESS') == 'True'
 
     DB_TYPE = config('DB_TYPE')
     DB_HOST = config('DB_HOST')

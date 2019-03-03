@@ -1,5 +1,6 @@
+import asyncio
 from sanic.exceptions import ServerError, InvalidUsage
-from src.app import create_app, connect_db
+from src.app import create_app, connect_db, kafka_consumer_confluent, kafka_consumer
 from schemas.json.loader import JSONSchemaLoader
 
 from config.config import Config
@@ -32,4 +33,18 @@ def invalid_usage(request, exception):
     return json(response.value, status=Config.STATUS_CODES[response.type])
 
 if __name__ == '__main__':
-    app.run(host=Config.HOST, port=int(Config.PORT), debug=Config.DEBUG, auto_reload=False)
+    if not Config.RUN_MULTIPLE_PROCESS: 
+        # the basic run server
+        app.run(host=Config.HOST, port=int(Config.PORT), debug=Config.DEBUG, auto_reload=False)
+    else:
+        # how to run kafka consumer along with the server
+        server = app.create_server(host=Config.HOST, port=Config.PORT, debug=Config.DEBUG)
+
+        loop = asyncio.get_event_loop()
+        # the server
+        asyncio.ensure_future(server)
+        # kafka python
+        asyncio.ensure_future(kafka_consumer())
+        # confluent kafka python
+        asyncio.ensure_future(kafka_consumer_confluent())
+        loop.run_forever()
