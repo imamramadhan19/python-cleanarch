@@ -1,7 +1,9 @@
+import logging
+
 import asyncio
 from sanic.exceptions import ServerError, InvalidUsage
 # from src.app import create_app, connect_db, kafka_consumer_confluent, kafka_consumer
-from src.app import create_app, connect_db
+from src.app import create_app, connect_db, config_log
 from schemas.json.loader import JSONSchemaLoader
 
 from config.config import Config
@@ -9,6 +11,10 @@ from src.shared import response_object
 from sanic.response import json
 
 app = create_app(config=Config)
+
+# config log
+config_log(app)
+logger = logging.getLogger(__name__)
 
 @app.listener('before_server_start')
 def setup_schemas(app, loop):
@@ -27,6 +33,9 @@ def close_db(app, loop):
 
 @app.exception(InvalidUsage)
 def invalid_usage(request, exception):
+    # log
+    logger.error(exception)
+
     if Config.DEBUG: return exception
     response = response_object.ResponseFailure.build_system_error(
         "{}: {}".format(exception.__class__.__name__, "{}".format(exception))

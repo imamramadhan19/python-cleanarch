@@ -1,3 +1,5 @@
+import logging
+
 from orator import DatabaseManager
 from sanic import Sanic
 from sanic_cors import CORS
@@ -7,6 +9,13 @@ from src.articles.v1.delivery.http_sanic import bp_articles
 
 from kafka import KafkaConsumer
 from confluent_kafka import Consumer, KafkaError
+
+logger = logging.getLogger(__name__)
+
+
+def config_log(app):
+    # set log config from config
+    logging.config.dictConfig(Config.LOGGING)
 
 
 def connect_db():

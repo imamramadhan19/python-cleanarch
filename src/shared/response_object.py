@@ -1,3 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class ResponseSuccess(object):
     SUCCESS = 'SUCCESS'
@@ -21,6 +25,9 @@ class ResponseFailure(object):
         self.message = self._format_message(message)
 
     def _format_message(self, msg):
+        # log
+        logger.error(msg)
+
         if isinstance(msg, Exception):
             return "{}: {}".format(msg.__class__.__name__, "{}".format(msg))
         return msg
