@@ -1,22 +1,22 @@
 # Sanic is a Flask-like Python 3.5+ web server that's written to go fast.
 # https://github.com/channelcat/sanic
-sanic==0.8.3
+sanic==20.3.0
 
 # A Sanic extension adding a decorator for CORS support. Based on flask-cors by Cory Dolphin.
 # https://github.com/ashleysommer/sanic-cors
-sanic-cors==0.9.7
+sanic-cors==0.10.0
 
 # Requests is an elegant and simple HTTP library for Python, built for human beings.
 # https://github.com/requests/requests
-requests==2.19.1
+requests==2.24.0
 
 # Decouple helps you to organize your settings so that you can change parameters without having to redeploy your app
 # https://github.com/henriquebastos/python-decouple
-python-decouple==3.1
+python-decouple==3.3
 
 # Cerberus provides powerful yet simple and lightweight data validation functionality out of the box and is designed to be easily extensible, allowing for custom validation
 # http://docs.python-cerberus.org/en/stable/index.html
-cerberus==1.2
+cerberus==1.3.2
 
 # The Orator ORM provides a simple yet beautiful ActiveRecord implementation
 # https://orator-orm.com/docs/0.9/installation.html
@@ -28,29 +28,29 @@ python-slugify==1.2.5
 
 # Psycopg is the most popular PostgreSQL database adapter for the Python programming language.
 # http://initd.org/psycopg/docs/
-psycopg2-binary==2.7.5
+psycopg2-binary==2.8.0
 
 # The Python interface to the Redis key-value store.
 # https://github.com/andymccurdy/redis-py
-redis==2.10.6
+redis==3.0.0
 
 # Object serialization and deserialization, lightweight and fluffy.
 # https://marshmallow.readthedocs.io/en/latest/install.html
-marshmallow==2.15.4
+marshmallow==3.6.1
 
 # Pylint is a Python static code analysis tool which looks for programming errors, 
 # helps enforcing a coding standard, sniffs for code smells and offers simple refactoring suggestions
 # https://github.com/PyCQA/pylint/
-pylint==2.3.0
+pylint==2.5.3
 
 # An(other) implementation of JSON Schema for Python
 # https://github.com/Julian/jsonschema
-jsonschema==2.6.0
+jsonschema==3.2.0
 
 # Raven is the official legacy Python client for Sentry, 
 # officially supports Python 2.6–2.7 & 3.3–3.7, and runs on PyPy and Google App Engine.
 # https://github.com/getsentry/raven-python
-raven==6.9.0
+raven==6.10.0
 
 # Python money class with optional CLDR-backed locale-aware formatting 
 # and an extensible currency exchange solution.
@@ -60,7 +60,7 @@ money==1.3.0
 # Babel is an integrated collection of utilities that assist in internationalizing 
 # and localizing Python applications, with an emphasis on web-based applications.
 # http://babel.pocoo.org/en/latest/
-Babel==2.6.0
+Babel==2.8.0
 
 # confluent-kafka-python is Confluent's Python client for Apache Kafka and the Confluent Platform.
 # Features:
@@ -70,9 +70,17 @@ Babel==2.6.0
 # Future proof - Confluent, founded by the creators of Kafka, is building a streaming platform with Apache Kafka at its core. It's high priority for us that client features keep pace with core Apache Kafka and components of the Confluent Platform.
 # The Python bindings provides a high-level Producer and Consumer with support for the balanced consumer groups of Apache Kafka >= 0.9
 # https://github.com/confluentinc/confluent-kafka-python
-confluent-kafka==0.11.6
+confluent-kafka==1.4.2
 
 # Python client for the Apache Kafka distributed stream processing system. 
 # kafka-python is designed to function much like the official java client, with a sprinkling of pythonic interfaces (e.g., consumer iterators).
 # https://github.com/dpkp/kafka-python
-kafka-python==1.4.4
+kafka-python==2.0.1
+
+#The aim of this module is to provide a common base representation of python source code. It is currently the library powering pylint’s capabilities.
+#https://pypi.org/project/astroid/
+astroid==2.4.2
+
+#A fast and thorough lazy object proxy.
+#https://pypi.org/project/lazy-object-proxy/
+lazy-object-proxy==1.4.3

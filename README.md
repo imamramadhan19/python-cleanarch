@@ -2,7 +2,7 @@
 Boilerplate for Python using Clean Architecture 
 
 ## Requirements
-- Python version 3.6+
+- Python version 3.8+
 - pip (package manager for Python), included since Python 3.4.
 - virtualenv (tool to create isolated Python environments)
 
