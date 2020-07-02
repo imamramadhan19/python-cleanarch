@@ -7,7 +7,7 @@ class InvalidRequestObject(object):
 
     def add_error(self, parameter, message):
         self.errors.append({'parameter': parameter, 'message': message})
-    
+
     def parse_error(self, errors):
         for key, value in errors.items():
             if isinstance(value, list):

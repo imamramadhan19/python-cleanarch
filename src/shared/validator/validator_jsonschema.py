@@ -13,7 +13,7 @@ class JSONSchemaValidator(Validator):
         def trace_error_value(error):
             if len(error.path) != 0: return (error.path[-1], error.message)
             return ('keyError', error.message)
-        
+
         self.__errors = dict(
             trace_error_value(e) for e in sorted(
                 Draft4Validator(schema).iter_errors(adict), key=exceptions.by_relevance()
@@ -23,9 +23,9 @@ class JSONSchemaValidator(Validator):
         self.__data = adict if len(self.__errors) == 0 else []
 
         return len(self.__errors) == 0
-    
-    def get_errors(self): 
+
+    def get_errors(self):
         return self.__errors
 
-    def get_valid_data(self): 
+    def get_valid_data(self):
         return self.__data

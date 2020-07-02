@@ -1,7 +1,6 @@
 import pytest
 
-from src.articles.domain.article import Article
-
+from src.articles.v1.domain.article import Article
 
 def test_init():
     id = 1

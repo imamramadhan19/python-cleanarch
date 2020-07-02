@@ -14,10 +14,10 @@ class RequestSanicDict(Request):
                 dict_d[key] = self.request.form.get(key, '')
         except Exception as e:
             pass
-        
+
         return dict_d
 
-    def json_to_dict(self): 
+    def json_to_dict(self):
         dict_d = {}
         try:
             dict_d.update(self.request.json)
@@ -25,7 +25,7 @@ class RequestSanicDict(Request):
             pass
 
         return dict_d
-    
+
     def query_to_dict(self):
         dict_d = {}
         try:

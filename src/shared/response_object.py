@@ -1,3 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class ResponseSuccess(object):
     SUCCESS = 'SUCCESS'
@@ -12,15 +16,18 @@ class ResponseSuccess(object):
     __bool__ = __nonzero__
 
 class ResponseFailure(object):
-    RESOURCE_ERROR      = 'RESOURCE_ERROR'
-    PARAMETERS_ERROR    = 'PARAMETERS_ERROR'
-    SYSTEM_ERROR        = 'SYSTEM_ERROR'
+    RESOURCE_ERROR = 'RESOURCE_ERROR'
+    PARAMETERS_ERROR = 'PARAMETERS_ERROR'
+    SYSTEM_ERROR = 'SYSTEM_ERROR'
 
     def __init__(self, type_, message):
         self.type = type_
         self.message = self._format_message(message)
 
     def _format_message(self, msg):
+        # log
+        logger.error(msg)
+
         if isinstance(msg, Exception):
             return "{}: {}".format(msg.__class__.__name__, "{}".format(msg))
         return msg
@@ -49,4 +56,3 @@ class ResponseFailure(object):
         message = "\n".join(["{}: {}".format(err['parameter'], err['message'])
                              for err in invalid_request_object.errors])
         return cls.build_parameters_error(message)
-

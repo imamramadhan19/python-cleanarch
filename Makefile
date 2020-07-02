@@ -5,12 +5,15 @@ docker:
 run:
 	python manage.py
 	
-py_clean:
+clean:
 	find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
 
-run_tests:
+test:
 	pytest tests/ -v
 
-lint_check:
+coverage:
+	pytest --cov=src tests/
+
+lint:
 	pylint src/*
 

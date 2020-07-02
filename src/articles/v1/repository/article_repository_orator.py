@@ -1,18 +1,17 @@
 from src.shared import helper
-from src.articles.domain.article import Article
-from src.articles.repository.abc_article_repository import ArticleRepository
+from src.articles.v1.domain.article import Article
+from src.articles.v1.repository.article_repository import ArticleRepository
 
 class ArticleRepositoryOrator(ArticleRepository):
     def __init__(self, db):
         self.db = db
 
     def get_all(self, request_objects):
-        
         query = self.db.table('articles')
-     
+
         if request_objects.title != "":
-            query = query.where('title','like','%{}%'.format(request_objects.title) )
-    
+            query = query.where('title', 'like', '%{}%'.format(request_objects.title))
+
         query = query.get()
 
         result = []
@@ -27,21 +26,19 @@ class ArticleRepositoryOrator(ArticleRepository):
                 'updated_at':row['updated_at']
             })
             result.append(data)
-       
+
         return result
-    
+
     def get_total(self, request_objects):
-        
         query = self.db.table('articles')
-     
+
         if request_objects.title != "":
-            query = query.where('title','=','{}'.format(request_objects.title) )
-    
+            query = query.where('title', '=', '{}'.format(request_objects.title))
+
         return query.count()
 
-    def get_by_id(self, request_objects):
-
-        query = self.db.table('articles').where('id', request_objects.id).first()
+    def get_by_id(self, id):
+        query = self.db.table('articles').where('id', id).first()
         if query:
             return Article.from_dict({
                 'id': query['id'],
@@ -53,9 +50,8 @@ class ArticleRepositoryOrator(ArticleRepository):
                 'updated_at': helper.get_now_timestamp()
             })
         return query
-    
+
     def create(self, request_objects):
-        
         return self.db.table('articles').insert_get_id({
             'title': request_objects.title,
             'content': request_objects.content,
@@ -67,7 +63,6 @@ class ArticleRepositoryOrator(ArticleRepository):
         })
 
     def update(self, request_objects):
-
         return self.db.table('articles').where('id', request_objects.id).update({
             'title': request_objects.title,
             'content': request_objects.content,
@@ -77,6 +72,5 @@ class ArticleRepositoryOrator(ArticleRepository):
             'updated_at': helper.get_now_timestamp(),
         })
 
-    def delete(self, request_objects): 
+    def delete(self, request_objects):
         return self.db.table('articles').where('id', '=', request_objects.id).delete()
-
